@@ -25,9 +25,22 @@ struct ContentView: View {
                     .resizable()
                         
                         .scaledToFit()
-                        .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(width: 100, height: 100)
                         .padding(.leading)
-                        Text(article.author ?? "")
+                        VStack(alignment: .leading){
+                            Text("Author:")
+                                .font(Font.system(size: 12, weight: .black, design: .monospaced))
+                        if let author = article.author{
+                            if author.contains("http"){
+                                Link("author website", destination: URL(string: author)!)
+                            }
+                            else{
+                                Text(article.author ?? "")
+                            }
+                           
+                        }
+                    }
+                       
                           
                         Spacer()
                     }.background(Color.yellow)
@@ -48,7 +61,7 @@ struct ContentView: View {
             }
             
         }.navigationBarTitle(Text("News"), displayMode: .inline)
-        .frame(height: UIScreen.main.bounds.height - 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        .frame(height: UIScreen.main.bounds.height - 100)
             .offset(y: 50)
         }.onAppear{avm.fetchData()}
        // .padding(.leading)
