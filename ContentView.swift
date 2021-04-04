@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Foundation
 struct ContentView: View {
     @StateObject var avm = AriclesViewModel()
     var body: some View {
@@ -20,7 +20,7 @@ struct ContentView: View {
             ForEach(avm.articles){ article in
                 VStack(alignment: .leading){
                     HStack{
-                    Image(uiImage: (UIImage(data: loadImage(ImageUrl: article.urlToImage ?? "https://i.pinimg.com/564x/6f/de/85/6fde85b86c86526af5e99ce85f57432e.jpg") ?? Data()) ?? UIImage(systemName: "star"))!)
+                        Image(uiImage: (UIImage(data: avm.loadImage(ImageUrl: article.urlToImage ?? "https://i.pinimg.com/564x/6f/de/85/6fde85b86c86526af5e99ce85f57432e.jpg") ?? Data()) ?? UIImage(systemName: "star"))!)
                        
                     .resizable()
                         
@@ -37,6 +37,8 @@ struct ContentView: View {
                             else{
                                 Text(article.author ?? "")
                             }
+                            Text("\(article.date,formatter: avm.dateFormatter)")
+                               .font(Font.system(size: 12))
                            
                         }
                     }
@@ -69,13 +71,8 @@ struct ContentView: View {
         }.ignoresSafeArea()
         }
     }
-    func loadImage(ImageUrl: String) -> Data?{
-        guard let url = URL(string: ImageUrl) else {return Data()}
-        if let data = try? Data(contentsOf: url){
-            return data
-        }
-        return nil
-    }
+    
+   
         
 }
 
@@ -84,3 +81,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
