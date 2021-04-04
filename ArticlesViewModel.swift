@@ -13,7 +13,7 @@ class AriclesViewModel: ObservableObject{
     @Published var articles = [Articles]()
     
    func fetchData(){
-    let API_KEY = "88d93082136b4daeaca01fbbfdcc1821"
+    let API_KEY = ""
     let API_URL = "https://newsapi.org/v2/everything?q=apple&from=2021-04-02&to=2021-04-02&sortBy=popularity&apiKey=\(API_KEY)"
         guard let url = URL(string: API_URL)else{
             return
