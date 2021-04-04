@@ -13,7 +13,7 @@ class AriclesViewModel: ObservableObject{
     @Published var articles = [Articles]()
     
    func fetchData(){
-    let API_KEY = ""
+    let API_KEY = "88d93082136b4daeaca01fbbfdcc1821"
     let API_URL = "https://newsapi.org/v2/everything?q=apple&from=2021-04-02&to=2021-04-02&sortBy=popularity&apiKey=\(API_KEY)"
         guard let url = URL(string: API_URL)else{
             return
@@ -26,7 +26,7 @@ class AriclesViewModel: ObservableObject{
                 do{
                 let response = try decoder.decode(News.self, from: data)
                     DispatchQueue.main.async {
-                        self.articles =  (response.articles?.compactMap(){$0})!
+                        self.articles = response.articles.compactMap(){$0}
                     }
                
                    print(response)
@@ -52,12 +52,7 @@ class AriclesViewModel: ObservableObject{
 }
 
 struct News : Codable{
-
-    var status : String?
-    var totalResults : Int = 0
-    var articles : [Articles]?
-   
-   
+    var articles : [Articles]
 }
 
 
