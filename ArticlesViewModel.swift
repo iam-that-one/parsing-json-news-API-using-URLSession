@@ -15,7 +15,9 @@ class AriclesViewModel: ObservableObject{
    func fetchData(){
     let API_KEY = ""
     let API_URL = "https://newsapi.org/v2/everything?q=apple&from=2021-04-02&to=2021-04-02&sortBy=popularity&apiKey=\(API_KEY)"
+    
         guard let url = URL(string: API_URL)else{
+            print("Invalid URL")
             return
         }
         let request = URLRequest(url: url)
@@ -37,11 +39,13 @@ class AriclesViewModel: ObservableObject{
             print(error?.localizedDescription as Any)
         }.resume()
     }
+    
     var dateFormatter : DateFormatter?{
         let formatter = DateFormatter()
         formatter.dateStyle = .full
         return formatter
     }
+    
     func loadImage(ImageUrl: String) -> Data?{
         guard let url = URL(string: ImageUrl) else {return Data()}
         if let data = try? Data(contentsOf: url){
