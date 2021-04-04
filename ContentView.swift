@@ -8,12 +8,18 @@
 import SwiftUI
 import Foundation
 struct ContentView: View {
+    @State private var stillLoding = true
     @StateObject var avm = AriclesViewModel()
     var body: some View {
         NavigationView{
-        ZStack{
-           
-            Color.green.opacity(0.30)
+            ZStack{
+                Color.green.opacity(0.30)
+                if stillLoding{
+                  ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1)
+                }
+             
         VStack(alignment: .leading){
             ScrollView(showsIndicators: false){
            
@@ -46,7 +52,7 @@ struct ContentView: View {
                           
                         Spacer()
                     }.background(Color.yellow)
-                 
+                    .onAppear{stillLoding = false}
                 Text(article.title ?? "")
                     .fontWeight(.bold)
                     .padding(.leading)
@@ -63,19 +69,19 @@ struct ContentView: View {
             }
             
         }.navigationBarTitle(Text("News"), displayMode: .inline)
-        .frame(height: UIScreen.main.bounds.height - 100)
-            .offset(y: 50)
+            .frame(height: UIScreen.main.bounds.height - 100)
+            .offset(y: 30)
         }.onAppear{avm.fetchData()}
+        .frame(height: UIScreen.main.bounds.height - 100)
        // .padding(.leading)
         
-        }.ignoresSafeArea()
+            
+            }.ignoresSafeArea()
+            
         }
-    }
     
-   
-        
+    }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

@@ -11,7 +11,7 @@ import Foundation
 class AriclesViewModel: ObservableObject{
    
     @Published var articles = [Articles]()
-    
+   
    func fetchData(){
     let API_KEY = ""
     let API_URL = "https://newsapi.org/v2/everything?q=apple&from=2021-04-02&to=2021-04-02&sortBy=popularity&apiKey=\(API_KEY)"
@@ -70,9 +70,9 @@ struct Articles : Codable,Identifiable {
     var id : String?{
         url
     }
-    
     var date : Date{
         let dateFormatter = DateFormatter()
+       // dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         let date = dateFormatter.date(from:publishedAt)!
         return date
